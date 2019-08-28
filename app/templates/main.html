@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if not user %}<a href="{{ url_for('register') }}">Регистрация</a>{% endif %}
+    <a href="{{ url_for('login') }}">Авторизация</a>
+    <a href="{{ url_for('input') }}">Ввод данных</a>
+    <a href="{{ url_for('output') }}">Вывод данных</a>
+{% endblock %}

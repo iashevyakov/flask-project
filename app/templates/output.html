@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{{ url_for('input') }}">Ввод данных</a>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+    <hr>
+    <h1>Вывод данных</h1>
+    <h1>Hi, {{ current_user.username }}!</h1>
+    <hr>
+    <h1>Твои сообщения</h1>
+    {% for msg in messages %}
+        <div><p>{{ msg[1] }} <a role="button" class="removediv"
+                                href="{{ url_for('delete_msg', key=msg[0]) }}">Удалить</a></p></div>
+    {% endfor %}
+{% endblock %}
+{% block script %}
+    <script>
+        $('.removediv').click(function () {
+            $(this).closest('div').remove();
+        })
+    </script>
+{% endblock %}

@@ -1,34 +1,23 @@
 <html>
-    <head>
-      {% if title %}
-      <title>{{ title }} - Microblog</title>
-      {% else %}
-      <title>Test Task</title>
-      {% endif %}
-    </head>
-    <body>
-      <div>
-    Microblog:
-    <a href="/register">Registration</a>
-    {% if current_user.is_anonymous %}
-    <a href="{{ url_for('login') }}">Login</a>
-    {% else %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-    {% endif %}
-    <a href="/input">Input Page</a>
-    <a href="/output">Output Page</a>
-
-      </div>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    {% block links %}{% endblock %}
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
         <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+                <li>{{ message }}</li>
             {% endfor %}
         </ul>
-        {% endif %}
-        {% endwith %}
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
+    {% endif %}
+{% endwith %}
+<hr>
+{% block content %}{% endblock %}
+</body>
+{% block script %}{% endblock %}
 </html>

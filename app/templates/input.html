@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <a href="{{ url_for('output') }}">Вывод данных</a>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+    <hr>
+    <h1>Ввод данных</h1>
     <h1>Hi, {{ current_user.username }}!</h1>
+    <form id="message" method="post">
+        <p><textarea form="message" placeholder="Enter your message" name="msg" cols="50" rows="5" required></textarea>
+        </p>
+        <p><input type="submit" value="Отправить"/></p>
+    </form>
 {% endblock %}
