@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import hashlib
 from datetime import timedelta
 from app import app, db, redis
 from flask import render_template, request, flash, redirect, url_for, Response
@@ -77,14 +77,16 @@ def register():
 def input():
     if request.method == 'POST':
         msg = request.form.get('msg')
-        redis.setex('thirt', timedelta(minutes=5), value=msg)
+        messages = [(key, redis.get(key)) for key in sorted(redis.scan_iter())]
+        key = hashlib.sha1(str(messages).encode('utf-8')).hexdigest()
+        redis.setex(key, timedelta(minutes=5), value=msg)
     return render_template('input.html', title='Input')
 
 
 @app.route('/output')
 @login_required
 def output():
-    messages = [(key, redis.get(key)) for key in redis.scan_iter()]
+    messages = [(key, redis.get(key).decode('utf-8')) for key in redis.scan_iter()]
     return render_template('output.html', title='Output', messages=messages)
 
 
