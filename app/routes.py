@@ -48,7 +48,7 @@ def logout():
 def user_registered(function):
     @wraps(function)
     def wrapper():
-        if not User.query.first():
+        if User.query.first():
             return redirect(url_for('login'))
         return function()
 

@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+  nginx:
+    build: docker/nginx
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - flask
+
+  flask:
+    container_name: flask
+    build:
+      context: .
+      dockerfile: docker/flask/Dockerfile
+    restart: always
+    env_file: docker/database.conf
+    expose:
+      - 8080
+    depends_on:
+      - db
+      - redis
+
+  db:
+    container_name: postgres
+    image: postgres:latest
+    env_file: docker/database.conf
+    ports:
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+
+volumes:
+  db_volume:
