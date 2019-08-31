@@ -1,22 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{ url_for('input') }}">Ввод данных</a>
-    <a href="{{ url_for('logout') }}">Выйти</a>
-    <hr>
-    <h1>Вывод данных</h1>
-    <h1>Hi, {{ current_user.username }}!</h1>
-    <hr>
-    <h1>Твои сообщения</h1>
-    {% for msg in messages %}
-        <div><p>{{ msg[1] }} <a role="button" class="removediv"
-                                href="{{ url_for('delete_msg', key=msg[0]) }}">Удалить</a></p></div>
-    {% endfor %}
+
+    <div class="container">
+        <div class="row" style="padding-top:50px; width: 50%; margin: 0 auto">
+
+            <div class="text-center">
+
+                <div class="list-group list-group-horizontal">
+                    <a href="{{ url_for('input') }}" class="list-group-item">Data
+                        Input</a>
+                    <a href="{{ url_for('output') }}" class="list-group-item active">Data
+                        Output</a>
+                    <a href="{{ url_for('logout') }}" class="list-group-item">Sign out</a>
+                </div>
+
+            </div>
+
+        </div>
+        <div style="padding-top:70px; width: 50%; margin: 0 auto">
+            <h2>Your messages</h2>
+            <hr style="width: 590px">
+            {% for msg in messages %}
+                <div style="word-wrap: break-word; width: 590px">{{ msg[1] }} <a role="button" class="removediv"
+                                                                                 href="{{ url_for('delete_msg', key=msg[0]) }}">Удалить</a>
+                </div>
+                <hr style="width: 590px">
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
 {% endblock %}
 {% block script %}
     <script>
         $('.removediv').click(function () {
-            $(this).closest('div').remove();
+            $(this).closest('div').next('hr').remove().end().remove();
         })
     </script>
 {% endblock %}

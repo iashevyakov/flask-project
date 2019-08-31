@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: docker/flask/Dockerfile
     restart: always
-    env_file: docker/database.conf
+    env_file: docker/app.conf
     expose:
       - 8080
     depends_on:

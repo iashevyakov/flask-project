@@ -7,7 +7,7 @@ from flask_redis import Redis
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/app/static')
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

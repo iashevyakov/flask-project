@@ -1,18 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+
+    <div class="container">
+        <div style="padding-top:50px;width: 50%; margin: 0 auto;">
+
+            <div class="text-center">
+
+                <div class="list-group list-group-horizontal">
+                    {% if not user %}
+                        <a href="{{ url_for('register') }}" class="list-group-item">Sign up</a>
+                    {% endif %}
+                    <a href="{{ url_for('login') }}" class="list-group-item active">Sign in</a>
+                    <a href="{{ url_for('input') }}" class="list-group-item">Data Input</a>
+                    <a href="{{ url_for('output') }}" class="list-group-item">Data Output</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="wrapper">
+        <form class="form-signin" method="post" novalidate>
+            <h2 class="form-signin-heading">Please log in</h2>
+            <br>
+            {{ form.hidden_tag() }}
+            {{ form.username(size=32, placeholder='Username', class='form-control') }}<br>
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <span class="span-error">{{ error }}</span>
+                {% endfor %}
+                <br>
+            {% endif %}
+            <br>
+            {{ form.password(size=32, placeholder='Password', class='form-control') }}<br>
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <span class="span-error">{{ error }}</span>
+                {% endfor %}
+                <br>
+            {% endif %}
+            <br>
+            <label>{{ form.remember_me(id="rememberME") }} {{ form.remember_me.label }}</label>
+            <br>
+            <br>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div align="center"><span {% if request.args.get('success') %}class="span-success"
+                                                  {% else %}class="span-error"{% endif %}>{{ message }}</span></div>
+                    {% endfor %}
+                    <br>
+                {% endif %}
+            {% endwith %}
+            {{ form.submit(class="btn btn-lg btn-primary btn-block", value='Login') }}
+        </form>
+    </div>
+
 {% endblock %}

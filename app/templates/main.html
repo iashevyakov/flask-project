@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if not user %}<a href="{{ url_for('register') }}">Регистрация</a>{% endif %}
-    <a href="{{ url_for('login') }}">Авторизация</a>
-    <a href="{{ url_for('input') }}">Ввод данных</a>
-    <a href="{{ url_for('output') }}">Вывод данных</a>
+
+
+    <div class="container">
+        <div style="padding-top: 50px;width: 50%; margin: 0 auto;">
+
+            <div class="text-center">
+
+                <div class="list-group list-group-horizontal">
+                    {% if not user %}
+                        <a href="{{ url_for('register') }}" class="list-group-item list-group-item-primary">Sign up</a>
+                    {% endif %}
+                    <a href="{{ url_for('login') }}" class="list-group-item list-group-item-secondary">Sign in</a>
+                    <a href="{{ url_for('input') }}" class="list-group-item list-group-item-success">Data Input</a>
+                    <a href="{{ url_for('output') }}" class="list-group-item list-group-item-info">Data Output</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
