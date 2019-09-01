@@ -22,6 +22,7 @@ services:
     depends_on:
       - db
       - redis
+    command: ["./wait-for-it.sh", "db:5432", "--","./entrypoint.sh"]
 
   db:
     container_name: postgres

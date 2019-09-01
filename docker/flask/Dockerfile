@@ -6,6 +6,5 @@ ADD . /app
 
 RUN pip install -r requirements.txt
 
-CMD flask db migrate
-CMD flask db upgrade
-CMD ["uwsgi", "uwsgi.ini"]
+RUN chmod u+x ./wait-for-it.sh
+RUN chmod u+x ./entrypoint.sh
